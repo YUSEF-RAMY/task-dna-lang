@@ -1,0 +1,536 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: #edf2f7;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  background:linear-gradient(to top ,#1d4c7e, #678aaf);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 2%;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 12px;
+  transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+.heart {
+  font-size: 1.2rem;
+}
+
+/* Hamburger icon */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 15px 30px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #e94d4d;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px; /* space between text and icon */
+}
+
+.hero-icon-inline {
+  width: 15%;
+  height: auto;
+  vertical-align: middle;
+  transform: translateY(-2px);
+}
+
+/* Content Card */
+.card {
+  background-color: #fff;
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 70%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card a {
+  color: #2b6cb0;
+  text-decoration: none;
+}
+
+.card a:hover {
+  text-decoration: underline;
+}
+
+.card h2, .card h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.card p {
+  margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #2b6cb0;
+  color: #fff;
+  font-size: 0.9rem;
+  margin-top: 40px;
+}
+
+/* ------------------------------ */
+/* RESPONSIVE NAVBAR */
+/* ------------------------------ */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    background-color: #2b6cb0;
+    position: absolute;
+    top: 55px;
+    left: 0;
+    padding: 15px 0;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links a {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero-icon-inline {
+    width: 50px;
+  }
+
+  .card {
+    padding: 20px;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+ .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-icon-inline {
+    width: 40px;
+  }
+
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .nav-links a {
+    margin: 8px 0;
+  }
+}
+/* Step 1: Setup Section */
+.setup-section {
+  margin-top: 2rem;
+}
+
+.setup-section h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.setup-form {
+  background-color: #dadcdc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  margin: 0 auto;
+}
+
+.capacity-input {
+  width: 60px;
+  margin-left: 10px;
+  padding: 5px;
+  border: 2px solid #000;
+  border-radius: 5px;
+}
+
+.setup-form h4 {
+  margin-top: 1rem;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.item {
+  /* background: #fff; */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.item-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.item-inputs input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 6px;
+  max-height: 150px;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #e74c3c;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  color: #c0392b;
+}
+
+/* Add Item Button */
+.add-btn {
+  margin-top: 1rem;
+  background: #126f39;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.add-btn:hover {
+  background: #27ae60;
+}
+
+/* Start Button */
+.start-btn-container {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.start-btn {
+  background: #3e658b;
+  color: white;
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.start-btn:hover {
+  background: #34495e;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .item-header {
+    display: none;
+  }
+
+  .item-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .item-inputs input {
+    width: 100%;
+  }
+
+  .delete-btn {
+    align-self: flex-end;
+  }
+}
+
+.algorithm-details {
+  margin-top: 2rem;
+  /* background: #f9fafb; */
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.algorithm-details h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.algorithm-details ol,
+.algorithm-details ul {
+  margin-left: 1.5rem;
+  line-height: 1.8;
+}
+
+.algorithm-details .math-block {
+  background: #fff;
+  border-left: 4px solid #4a90e2;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-family: "Courier New", monospace;
+  overflow-x: auto;
+}
+
+@media (max-width: 768px) {
+  .algorithm-details {
+    padding: 1rem;
+  }
+
+  .algorithm-details h2 {
+    font-size: 1.3rem;
+  }
+}
+/* ===== Step 2: Build Table styling ===== */
+.build-table-section {
+  margin-top: 2rem;
+}
+
+.build-table-section h3 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.small-note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+/* table container */
+.table-wrap {
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+/* style the DP table */
+.dp-table {
+  width: 90%;
+  margin: 0 auto;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.dp-table th,
+.dp-table td {
+  border: 1px solid #e6e9ee;
+  padding: 18px 12px;
+  text-align: center;
+  background: #fafafa;
+  vertical-align: middle;
+  position: relative;
+}
+
+/* header style */
+.dp-table thead th {
+  background: #cacccc;
+  font-weight: 700;
+  color: #34495e;
+}
+
+/* item label column */
+.item-label {
+  text-align: left;
+  background: #fff;
+  color: #34495e;
+  font-weight: 600;
+  min-width: 140px;
+}
+
+/* cell value */
+.cell-value {
+  font-weight: 600;
+  color: #2d3748;
+}
+
+/* highlight current cell (light) and selected final (darker) */
+.dp-cell-highlight {
+  background: rgba(157, 225, 134, 0.45); /* pale green */
+  transition: background 0.25s;
+}
+
+.dp-cell-selected {
+  background: rgba(118, 203, 38, 0.9); /* stronger green */
+  color: white;
+}
+
+/* arrow element inside cell (down arrow) */
+.cell-arrow {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -12px;
+  font-size: 22px;
+  color: #222;
+  pointer-events: none;
+}
+
+/* controls */
+.controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.reset-btn {
+  background: #fff;
+  border: 1.5px solid #2c3e50;
+  color: #2c3e50;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.step-btn {
+  background: #2c3e50;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 0 rgba(44, 62, 80, 0.14);
+}
+
+/* code area */
+.code-area {
+  margin-top: 16px;
+  background: #f7f8fb;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #eef2f7;
+  font-family: "Courier New", monospace;
+  max-height: 240px;
+  overflow: auto;
+}
+
+.code-line {
+  padding: 2px 6px;
+  display: block;
+  white-space: pre;
+}
+
+/* highlighted code lines */
+.code-line.highlight {
+  background: rgba(152, 255, 255, 0.7);
+}
+/* highlight the current step cell */
+.dp-cell-highlight {
+  background-color: rgba(0, 255, 0, 0.25) !important;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+/* keep highlight marker for the current step */
+.current-step {
+  box-shadow: 0 0 10px rgba(107, 115, 191, 0.6);
+  border: 2px solid rgba(137, 123, 255, 0.8);
+}
+
+/* cell that is part of the optimal solution */
+.dp-cell-selected {
+  background-color: rgba(102, 80, 209, 0.35) !important;
+}
+
+/* optional arrow style */
+.cell-arrow {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: rgb(137, 168, 227);
+}
+.highlight-step {
+  background-color: #91a9e6;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.dp-cell-highlight {
+  background-color: #91a9e6 !important;
+}
+
+
+/* responsive tweaks */
+@media (max-width: 768px) {
+  .dp-table th,
+  .dp-table td {
+    padding: 12px 8px;
+  }
+  .item-label { min-width: 110px; }
+}

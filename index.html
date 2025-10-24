@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knapsack Algorithm Visualization</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo-text">Monica Granbois</div>
+
+      <!-- Hamburger Icon -->
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Projects</a>
+        <a href="#">RSS</a>
+        <span class="heart">❤️</span>
+      </nav>
+    </header>
+
+    <main class="content">
+      <div class="hero">
+        <h1>
+          <img
+            src="imges/backpack-icon.png"
+            alt="Knapsack icon"
+            class="hero-icon-inline"
+          />
+          Knapsack Algorithm Visualization
+        </h1>
+      </div>
+
+      <section class="card">
+        <h2>Knapsack Algorithm</h2>
+        <p>
+          The <a href="#">knapsack problem</a> is usually described with a
+          story. For example, a hiker needs to pack a knapsack for their
+          expedition. There are many items the hiker would like to take: a tent,
+          a sleeping bag, a frisbee, a selfie stick, a raincoat etc... But the
+          knapsack can only carry a maximum amount of weight.
+        </p>
+        <p>
+          The hiker gives a value to the potential items. An item that will be
+          very beneficial, like a sleeping bag, will have a high value. An item
+          that will be less beneficial, like a frisbee, will have a lower value.
+          The hiker must prioritize which items to take based on the items'
+          values and weights. The knapsack algorithm solves the hiker's dilemma
+          by finding the most valuable items that will fit in the knapsack.
+        </p>
+        <p>
+          This app will step through the knapsack algorithm. Below, you may
+          define the inputs to the algorithm. You can set the knapsack capacity
+          (maximum weight) between 1 and 10. You can enter up to 10 items, with
+          values between 0 and 50 and weight between 1 and 10. Click the 'Start'
+          button to step through the algorithm.
+        </p>
+        <p>
+          Below the setup fields on this screen is additional information about
+          the knapsack algorithm.
+        </p>
+        <div class="setup-section">
+          <h3>Step 1: Setup</h3>
+
+          <div class="setup-form">
+            <label for="capacity"><strong>Knapsack Capacity</strong></label>
+            <input
+              type="number"
+              id="capacity"
+              class="capacity-input"
+              min="1"
+              max="10"
+              value="5"
+            />
+
+            <h4>Available Items</h4>
+
+            <div id="items-container">
+              <!-- Items will be dynamically added here -->
+            </div>
+
+            <button id="add-item" class="add-btn">
+              <i class="fa-solid fa-plus"></i> New Item
+            </button>
+          </div>
+
+          <div class="start-btn-container">
+            <button id="start-btn" class="start-btn">Start</button>
+          </div>
+        </div>
+
+        <!-- Algorithm Details Section (inside same card) -->
+        <div class="algorithm-details">
+          <h2>Algorithm Details</h2>
+          <p>In this version of the story there are also two constraints:</p>
+          <ol>
+            <li>
+              The hiker cannot break an item into pieces and take some of the
+              pieces.
+            </li>
+            <li>The hiker cannot take multiples of an item.</li>
+          </ol>
+
+          <p>
+            This is known as the "0-1 knapsack problem"; an item is taken, or it
+            is not. The mathematical representation of the 0-1 knapsack problem
+            is:
+          </p>
+
+          <div class="math-block">
+            <p>
+              where <em>x<sub>i</sub></em> ∈ {0,1}
+            </p>
+            <p>
+              maximize Σ<sup>n</sup><sub>i=1</sub> v<sub>i</sub>x<sub>i</sub>
+            </p>
+            <p>
+              subject to Σ<sup>n</sup><sub>i=1</sub> w<sub>i</sub>x<sub>i</sub>
+              ≤ c
+            </p>
+          </div>
+
+          <p>
+            Where <em>i</em> is an item, <em>v<sub>i</sub></em> is the item's
+            value, <em>w<sub>i</sub></em> is the item's weight, and
+            <em>c</em> is the capacity of the knapsack.
+          </p>
+
+          <p>
+            The brute force solution is to consider every possible combination
+            of items. However, this would take O(2<sup>n</sup>) time. The list
+            of items is a set.
+            <span style="color: blue"
+              >. The number of subsets a set has is 2N.
+            </span>
+            For example, given a set with 3 elements there are 8 subsets, 2<sup
+              >3</sup
+            >
+            = 8. For the set [A, B, C] the possible subsets are:
+          </p>
+
+          <ul>
+            <li>[]</li>
+            <li>[A]</li>
+            <li>[B]</li>
+            <li>[C]</li>
+            <li>[A, B]</li>
+            <li>[A, C]</li>
+            <li>[B, C]</li>
+            <li>[A, B, C]</li>
+          </ul>
+          <p style="margin-top: 10px">
+            Instead, <span style="color: blue">dynamic programming</span> is
+            used to solve the problem. Dynamic programming breaks the problem
+            into subproblems. The solution to each subproblem is stored and used
+            to solve other, larger, subproblems. The final solution is built up
+            from these subproblems.
+          </p>
+          <p>
+            In this case, an in-memory table stores the max value at different
+            weights and number of items. Those values are used to build up a
+            table that last's cell will contain the max value the knapsack can
+            contain. The algorithm then walks through the table to get the items
+            that make up that max value.
+          </p>
+          <p>
+            The knapsack problem comes in many variations. For information about
+            other versions, see "
+            <span style="color: blue"
+              >KNAPSACK PROBLEMS - Algorithms and Computer Implementations by
+              Silvano Martello and Paolo Toth</span
+            >
+            ".
+          </p>
+        </div>
+        <!-- ===== Step 2: Build Table (ضع داخل نفس card) ===== -->
+        <div
+          class="build-table-section"
+          id="execution-section"
+          style="display: none"
+        >
+          <h3>Step 2: Build Table</h3>
+          <p class="small-note">Press the "Step" button to fill the table.</p>
+
+          <div class="table-wrap" id="table-wrap">
+            <!-- Table is generated here -->
+          </div>
+
+          <div class="controls-row">
+            <button id="reset-table" class="reset-btn">Reset</button>
+            <button id="step-btn" class="step-btn">Step</button>
+          </div>
+
+          <div class="code-area">
+            <pre id="code-block" class="code-block"></pre>
+          </div>
+          <p style="margin-top: 20px">
+            The algorithm has completed. The following items fit in the knapsack
+            and provide the greatest value:
+          </p>
+          <ul>
+            <li>item 3</li>
+            <li>item 2</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script>
+    const toggle = document.getElementById("menu-toggle");
+    const nav = document.getElementById("nav-links");
+
+    toggle.addEventListener("click", () => {
+      nav.classList.toggle("active");
+    });
+
+    const itemsContainer = document.getElementById("items-container");
+    const addItemBtn = document.getElementById("add-item");
+    let itemCount = 0;
+
+    function createItem(name = "", value = "", weight = "") {
+      itemCount++;
+      const itemDiv = document.createElement("div");
+      itemDiv.classList.add("item");
+
+      itemDiv.innerHTML = `
+      <div class="item-header">
+        <strong>Item Name</strong>
+        <strong>Value</strong>
+        <strong>Weight</strong>
+      </div>
+      <div class="item-inputs">
+        <input type="text" placeholder="item ${itemCount}" value="${name}">
+        <input type="number" step="0.1" min="0" max="50" value="${value}">
+        <input type="number" min="1" max="10" value="${weight}">
+        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `;
+
+      const deleteBtn = itemDiv.querySelector(".delete-btn");
+      deleteBtn.addEventListener("click", () => {
+        itemsContainer.removeChild(itemDiv);
+      });
+
+      itemsContainer.appendChild(itemDiv);
+    }
+
+    createItem("item 1", 4, 2);
+    createItem("item 2", 3, 1);
+    createItem("item 3", 5, 3);
+
+    addItemBtn.addEventListener("click", () => createItem());
+
+    (function () {
+      function toFloat(v) {
+        return parseFloat(v) || 0;
+      }
+      function formatDisplayCap(idx, scale) {
+        return scale === 1 ? String(idx) : (idx / scale).toFixed(1);
+      }
+
+      const stepBtn = document.getElementById("step-btn");
+      const resetBtn = document.getElementById("reset-table");
+      const tableWrap = document.getElementById("table-wrap");
+      const codeBlock = document.getElementById("code-block");
+
+      let actions = [];
+      let T = [];
+      let iMax = 0;
+      let cMax = 0;
+      let scale = 1;
+      let currentStep = 0;
+
+      const codeLines = [
+        "// w: item weight (w)",
+        "// value: item value (v)",
+        "// c: current capacity (c)",
+        "// i: index (i)",
+        "if (w <= c) { // include possible",
+        "  T[i][c] = Math.max(T[i-1][c], (value + T[i-1][c - w]))",
+        "} else {",
+        "  T[i][c] = T[i-1][c]",
+        "}",
+      ];
+
+      function renderCode(highlightLines = []) {
+        codeBlock.innerHTML = "";
+        codeLines.forEach((ln, idx) => {
+          const lineEl = document.createElement("div");
+          lineEl.className =
+            "code-line" +
+            (highlightLines.includes(idx + 1) ? " highlight" : "");
+          lineEl.textContent =
+            (idx + 1).toString().padStart(2, " ") + "  " + ln;
+          codeBlock.appendChild(lineEl);
+        });
+      }
+
+      function readInputs() {
+        const capInput = document.getElementById("capacity");
+        const capacity = toFloat(capInput.value);
+        const items = [];
+        const itemNodes = document
+          .getElementById("items-container")
+          .querySelectorAll(".item");
+
+        itemNodes.forEach((node) => {
+          const inputs = node.querySelectorAll("input");
+          const name = inputs[0].value || "";
+          const value = toFloat(inputs[1].value);
+          const weight = toFloat(inputs[2].value);
+          items.push({ name, value, weight });
+        });
+        return { capacity, items };
+      }
+
+      function prepareActions() {
+        const { capacity, items } = readInputs();
+        scale = 1;
+        for (const it of items) {
+          if (
+            Math.abs(it.weight - Math.round(it.weight)) > 1e-9 ||
+            Math.abs(capacity - Math.round(capacity)) > 1e-9
+          ) {
+            scale = 10;
+            break;
+          }
+        }
+
+        cMax = Math.round(capacity * scale);
+        iMax = items.length;
+
+        const sItems = items.map((it) => ({
+          name: it.name || "",
+          value: it.value,
+          sValue: it.value,
+          weight: it.weight,
+          sWeight: Math.round(it.weight * scale),
+        }));
+
+        T = new Array(iMax + 1);
+        for (let i = 0; i <= iMax; i++) {
+          T[i] = new Array(cMax + 1).fill(0);
+        }
+
+        actions = [];
+        for (let i = 1; i <= iMax; i++) {
+          for (let c = 0; c <= cMax; c++) {
+            actions.push({ i, c, item: sItems[i - 1] });
+          }
+        }
+        currentStep = 0;
+      }
+
+      function renderTableUI() {
+        const { capacity, items } = readInputs();
+        scale = 1;
+        for (const it of items) {
+          if (
+            Math.abs(it.weight - Math.round(it.weight)) > 1e-9 ||
+            Math.abs(capacity - Math.round(capacity)) > 1e-9
+          ) {
+            scale = 10;
+            break;
+          }
+        }
+        cMax = Math.round(capacity * scale);
+
+        const table = document.createElement("table");
+        table.className = "dp-table";
+        const thead = document.createElement("thead");
+        const headRow = document.createElement("tr");
+
+        const thEmpty = document.createElement("th");
+        thEmpty.textContent = "";
+        headRow.appendChild(thEmpty);
+
+        for (let c = 0; c <= cMax; c++) {
+          const th = document.createElement("th");
+          th.textContent = formatDisplayCap(c, scale);
+          headRow.appendChild(th);
+        }
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement("tbody");
+        const itemNodes = document
+          .getElementById("items-container")
+          .querySelectorAll(".item");
+
+        if (itemNodes.length === 0) {
+          const tr = document.createElement("tr");
+          const tdLabel = document.createElement("td");
+          tdLabel.className = "item-label";
+          tdLabel.textContent = "(no items)";
+          tr.appendChild(tdLabel);
+          for (let c = 0; c <= cMax; c++) {
+            const td = document.createElement("td");
+            td.innerHTML = '<div class="cell-value">0</div>';
+            tr.appendChild(td);
+          }
+          tbody.appendChild(tr);
+        } else {
+          itemNodes.forEach((node, idx) => {
+            const name =
+              node.querySelectorAll("input")[0].value || `item ${idx + 1}`;
+            const val =
+              parseFloat(node.querySelectorAll("input")[1].value) || 0;
+            const wt = parseFloat(node.querySelectorAll("input")[2].value) || 0;
+
+            const tr = document.createElement("tr");
+            const tdLabel = document.createElement("td");
+            tdLabel.className = "item-label";
+            tdLabel.innerHTML = `<div>${name}</div><div style="font-size:0.85rem;color:#6b7280;">(v: ${val} w: ${wt})</div>`;
+            tr.appendChild(tdLabel);
+
+            for (let c = 0; c <= cMax; c++) {
+              const td = document.createElement("td");
+              td.dataset.i = idx + 1;
+              td.dataset.c = c;
+              const inner = document.createElement("div");
+              inner.className = "cell-value";
+              inner.textContent = "0";
+              td.appendChild(inner);
+              tr.appendChild(td);
+            }
+            tbody.appendChild(tr);
+          });
+        }
+
+        table.appendChild(tbody);
+        tableWrap.innerHTML = "";
+        tableWrap.appendChild(table);
+      }
+
+      function doStep() {
+        if (currentStep >= actions.length) {
+          renderCode([]);
+          return;
+        }
+
+        const action = actions[currentStep];
+        const i = action.i;
+        const c = action.c;
+        const item = action.item;
+
+        const w = item.sWeight;
+        const value = item.sValue;
+        const prev = T[i - 1][c];
+
+        let newVal;
+        let included = false;
+        if (w <= c) {
+          const candidate = value + T[i - 1][c - w];
+          if (candidate > prev) {
+            newVal = candidate;
+            included = true;
+          } else {
+            newVal = prev;
+          }
+        } else {
+          newVal = prev;
+        }
+        T[i][c] = newVal;
+
+        const table = tableWrap.querySelector(".dp-table");
+        const tbody = table.querySelector("tbody");
+        const row = tbody.querySelectorAll("tr")[i - 1];
+        const cells = row.querySelectorAll("td");
+        const targetTd = cells[c + 1];
+
+        // إزالة التظليل من كل الخلايا السابقة
+        table.querySelectorAll(".current-step").forEach((td) => {
+          td.classList.remove("current-step", "dp-cell-highlight");
+        });
+
+        // إضافة التظليل الحالي فقط
+        targetTd.classList.add("current-step", "dp-cell-highlight");
+
+        // تحديث القيمة
+        const valDiv = targetTd.querySelector(".cell-value");
+        valDiv.textContent = (Math.round(newVal * 100) / 100).toString();
+
+        if (included) {
+          targetTd.classList.add("dp-cell-selected");
+          const fromRow = tbody.querySelectorAll("tr")[i - 2];
+          if (fromRow && c - w >= 0) {
+            const fromCells = fromRow.querySelectorAll("td");
+            const fromTd = fromCells[c - w + 1];
+            const arrowEl = document.createElement("div");
+            arrowEl.className = "cell-arrow";
+            arrowEl.innerHTML = "↓";
+            targetTd.appendChild(arrowEl);
+          }
+        }
+
+        const highlightLines = w <= c ? [5, 6] : [7, 8];
+        renderCode(highlightLines);
+
+        currentStep++;
+        if (currentStep >= actions.length) {
+          stepBtn.textContent = "Done";
+          stepBtn.disabled = true;
+        }
+      }
+
+      function resetBuild() {
+        prepareActions();
+        renderTableUI();
+        renderCode([]);
+        stepBtn.textContent = "Step";
+        stepBtn.disabled = false;
+      }
+      const startBtn = document.getElementById("start-btn");
+      if (startBtn) {
+        startBtn.addEventListener("click", () => {
+          // إخفاء كل المحتوى اللي في الكارد (المدخلات والأزرار)
+          const cardContent = document.querySelector(".card-content"); // غيّري الكلاس ده حسب الكارد عندك
+          const executionSection = document.getElementById("execution-section");
+
+          if (cardContent) cardContent.style.display = "none"; // يخفي المحتوى
+          if (executionSection) executionSection.style.display = "block"; // يظهر الجدول
+
+          // يبدأ التنفيذ
+          resetBuild();
+        });
+      }
+
+      stepBtn.addEventListener("click", () => {
+        doStep();
+      });
+      resetBtn.addEventListener("click", () => {
+        resetBuild();
+      });
+
+      window.addEventListener("load", () => {
+        prepareActions();
+        renderTableUI();
+        renderCode([]);
+      });
+    })();
+    // =========================
+    // Hide and Show Execution Section Logic
+    // =========================
+    const startBtn = document.getElementById("start-btn");
+    const executionSection = document.getElementById("execution-section");
+    const card = document.querySelector(".card");
+
+    // أول ما تضغطي على start
+    startBtn.addEventListener("click", () => {
+      // نخفي كل العناصر اللي جوا الكارد ماعدا build-table-section
+      const children = card.children;
+      for (let child of children) {
+        if (child !== executionSection) {
+          child.style.display = "none";
+        }
+      }
+
+      // نعرض جزء التنفيذ فقط
+      executionSection.style.display = "block";
+    });
+    // =========================
+    // Hide and Show Execution Section Logic
+    // =========================
+
+    const resetBtn = document.getElementById("reset-table");
+
+    // عند الضغط على Start
+    startBtn.addEventListener("click", () => {
+      const children = card.children;
+      for (let child of children) {
+        if (child !== executionSection) {
+          child.style.display = "none";
+        }
+      }
+      executionSection.style.display = "block";
+    });
+
+    // عند الضغط على Reset
+    resetBtn.addEventListener("click", () => {
+      const children = card.children;
+      for (let child of children) {
+        if (child !== executionSection) {
+          child.style.display = "";
+        }
+      }
+      executionSection.style.display = "none";
+    });
+  </script>
+</html>
